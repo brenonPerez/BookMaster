@@ -2,6 +2,7 @@
 using BookMaster.Communication.Responses;
 using BookMaster.Domain.Repositories.Books;
 using BookMaster.Domain.Entities;
+using FluentValidation;
 
 namespace BookMaster.Application.UseCases.Book.Register;
 public class RegisterBookUseCase : IRegisterBookUseCase
@@ -14,6 +15,8 @@ public class RegisterBookUseCase : IRegisterBookUseCase
 
     public async Task<ResponseBookJson> Execute(RequestBookJson request)
     {
+        Validate(request);
+
         var bookEntity = new BookMaster.Domain.Entities.Book
         {
             Title = request.Title,
@@ -34,5 +37,17 @@ public class RegisterBookUseCase : IRegisterBookUseCase
             Year = bookEntity.Year,
             Summary = bookEntity.Summary
         };
+    }
+
+    private void Validate(RequestBookJson request)
+    {
+        var validation = new RegisterBookValidator();
+
+        var result = validation.Validate(request);
+
+        if(result.IsValid is false)
+        {
+            throw new ValidationException(result.Errors);
+        }
     }
 }
