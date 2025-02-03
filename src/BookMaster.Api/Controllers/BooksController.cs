@@ -16,6 +16,6 @@ public class BooksController : ControllerBase
         [FromServices] IRegisterBookUseCase useCase)
     {
         var response = await useCase.Execute(request);
-        return CreatedAtAction(string.Empty, response);
+        return Created(string.Empty, response);
     }
 }
