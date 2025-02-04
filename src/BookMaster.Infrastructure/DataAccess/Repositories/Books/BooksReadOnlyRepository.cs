@@ -2,7 +2,7 @@
 using BookMaster.Domain.Repositories.Books;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookMaster.Infrastructure.DataAccess.Repositories;
+namespace BookMaster.Infrastructure.DataAccess.Repositories.Books;
 internal class BooksReadOnlyRepository : IBooksReadOnlyRepository
 {
     private readonly BookMasterDbContext _dbContext;

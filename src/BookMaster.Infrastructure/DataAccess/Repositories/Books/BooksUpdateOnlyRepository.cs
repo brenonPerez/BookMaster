@@ -2,7 +2,7 @@
 using BookMaster.Domain.Repositories.Books;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookMaster.Infrastructure.DataAccess.Repositories;
+namespace BookMaster.Infrastructure.DataAccess.Repositories.Books;
 internal class BooksUpdateOnlyRepository : IBooksUpdateOnlyRepository
 {
     private readonly BookMasterDbContext _dbContext;
@@ -19,5 +19,6 @@ internal class BooksUpdateOnlyRepository : IBooksUpdateOnlyRepository
     public void Update(Book book)
     {
         _dbContext.Books.Update(book);
+        //salvar modificações
     }
 }

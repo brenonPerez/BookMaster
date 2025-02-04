@@ -1,6 +1,6 @@
 ﻿using BookMaster.Domain.Repositories.Books;
 using BookMaster.Infrastructure.DataAccess;
-using BookMaster.Infrastructure.DataAccess.Repositories;
+using BookMaster.Infrastructure.DataAccess.Repositories.Books;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
