@@ -26,15 +26,7 @@ public class RegisterBookUseCase : IRegisterBookUseCase
 
         await _booksOnlyRepository.Add(bookEntity);
 
-        return new ResponseBookJson
-        {
-            Id = bookEntity.Id,
-            Title = bookEntity.Title,
-            Author = bookEntity.Author,
-            Publisher = bookEntity.Publisher,
-            Year = bookEntity.Year,
-            Summary = bookEntity.Summary
-        };
+        return _mapper.Map<ResponseBookJson>(bookEntity);
     }
 
     private void Validate(RequestBookJson request)
