@@ -1,10 +1,10 @@
 ﻿using BookMaster.Communication.Requests;
 using FluentValidation;
 
-namespace BookMaster.Application.UseCases.Books.Register;
-public class RegisterBookValidator : AbstractValidator<RequestBookJson>
+namespace BookMaster.Application.UseCases.Books;
+public class BookValidator : AbstractValidator<RequestBookJson>
 {
-    public RegisterBookValidator()
+    public BookValidator()
     {
         RuleFor(x => x.Title)
             .NotEmpty()

@@ -31,7 +31,7 @@ public class RegisterBookUseCase : IRegisterBookUseCase
 
     private void Validate(RequestBookJson request)
     {
-        var validation = new RegisterBookValidator();
+        var validation = new BookValidator();
 
         var result = validation.Validate(request);
 
