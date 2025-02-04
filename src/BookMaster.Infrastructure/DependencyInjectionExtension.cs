@@ -26,6 +26,7 @@ public static class DependencyInjectionExtension
     private static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IBooksWriteOnlyRepository, BooksWriteOnlyRepository>();
+        services.AddScoped<IBooksReadOnlyRepository, BooksReadOnlyRepository>();
     }
 }
 
