@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using BookMaster.Communication.Responses;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -10,22 +11,15 @@ public class ExceptionFilter : IExceptionFilter
     {
         if (context.Exception is ValidationException validationException)
         {
-            context.Result = new BadRequestObjectResult(new
-            {
-                Errors = validationException.Errors.Select(e => e.ErrorMessage)
-            });
-            context.ExceptionHandled = true;
+            var errorResponse = new ResponseErrorJson(validationException.Errors.Select(e => e.ErrorMessage).ToList());
+            context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Result = new ObjectResult(errorResponse);
         }
         else
         {
-            context.Result = new ObjectResult(new
-            {
-                Message = "Ocorreu um erro desconhecido no servidor."
-            })
-            {
-                StatusCode = 500
-            };
-            context.ExceptionHandled = true;
+            var errorResponse = new ResponseErrorJson("Ocorreu um erro desconhecido no servidor.");
+            context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            context.Result = new ObjectResult(errorResponse);
         }
     }
 }

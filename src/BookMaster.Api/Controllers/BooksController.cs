@@ -10,7 +10,7 @@ public class BooksController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(
         [FromBody] RequestBookJson request,
         [FromServices] IRegisterBookUseCase useCase)
