@@ -2,6 +2,7 @@
 using BookMaster.Communication.Requests;
 using BookMaster.Domain.Repositories;
 using BookMaster.Domain.Repositories.Books;
+using BookMaster.Domain.Resources.Books;
 using BookMaster.Exception.ExceptionBase;
 
 namespace BookMaster.Application.UseCases.Books.Update;
@@ -29,7 +30,7 @@ public class UpdateBookUseCase : IUpdateBookUseCase
 
         if (book is null)
         {
-            throw new NotFoundException("O livro não foi encontrado");
+            throw new NotFoundException(ResourceBookMessages.NOT_FOUND_BOOK);
         }
 
         _mapper.Map(request, book);
