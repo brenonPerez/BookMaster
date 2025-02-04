@@ -1,4 +1,5 @@
-﻿using BookMaster.Application.UseCases.Books.GetById;
+﻿using BookMaster.Application.UseCases.Books.Delete;
+using BookMaster.Application.UseCases.Books.GetById;
 using BookMaster.Application.UseCases.Books.Register;
 using BookMaster.Application.UseCases.Books.Update;
 using BookMaster.Communication.Requests;
@@ -45,6 +46,19 @@ public class BooksController : ControllerBase
     [FromBody] RequestBookJson request)
     {
         await useCase.Execute(id, request);
+
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteBookUseCase useCase,
+        [FromRoute] long id)
+    {
+        await useCase.Execute(id);
 
         return NoContent();
     }
