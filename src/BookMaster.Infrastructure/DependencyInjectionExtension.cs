@@ -1,5 +1,7 @@
-﻿using BookMaster.Domain.Repositories.Books;
+﻿using BookMaster.Domain.Repositories;
+using BookMaster.Domain.Repositories.Books;
 using BookMaster.Infrastructure.DataAccess;
+using BookMaster.Infrastructure.DataAccess.Repositories;
 using BookMaster.Infrastructure.DataAccess.Repositories.Books;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IBooksWriteOnlyRepository, BooksWriteOnlyRepository>();
         services.AddScoped<IBooksReadOnlyRepository, BooksReadOnlyRepository>();
         services.AddScoped<IBooksUpdateOnlyRepository, BooksUpdateOnlyRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }
 
