@@ -3,6 +3,7 @@ using BookMaster.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMaster.Infrastructure.Migrations
 {
     [DbContext(typeof(BookMasterDbContext))]
-    partial class BookMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204111533_FixBookConstraints_20250204")]
+    partial class FixBookConstraints_20250204
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
