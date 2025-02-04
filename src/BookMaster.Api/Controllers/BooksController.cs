@@ -1,5 +1,6 @@
 ﻿using BookMaster.Application.UseCases.Books.GetById;
 using BookMaster.Application.UseCases.Books.Register;
+using BookMaster.Application.UseCases.Books.Update;
 using BookMaster.Communication.Requests;
 using BookMaster.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -31,5 +32,20 @@ public class BooksController : ControllerBase
         var response = await useCase.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+    [FromServices] IUpdateBookUseCase useCase,
+    [FromRoute] long id,
+    [FromBody] RequestBookJson request)
+    {
+        await useCase.Execute(id, request);
+
+        return NoContent();
     }
 }
