@@ -15,4 +15,16 @@ internal class BooksReadOnlyRepository : IBooksReadOnlyRepository
     {
         return await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
     }
+
+    public async Task<List<Book>> GetByFilters(string? title, string? author, string? publisher)
+    {
+        return await _dbContext.Books
+            .AsNoTracking()
+            .Where(book =>
+                (string.IsNullOrEmpty(title) || book.Title.Contains(title)) &&
+                (string.IsNullOrEmpty(author) || book.Author.Contains(author)) &&
+                (string.IsNullOrEmpty(publisher) || book.Publisher.Contains(publisher))
+            )
+            .ToListAsync();
+    }
 }
