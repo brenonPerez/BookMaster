@@ -7,8 +7,8 @@ using FluentValidation;
 namespace BookMaster.Application.UseCases.Book.Register;
 public class RegisterBookUseCase : IRegisterBookUseCase
 {
-    private readonly IBooksOnlyRepository _booksOnlyRepository;
-    public RegisterBookUseCase(IBooksOnlyRepository booksOnlyRepository)
+    private readonly IBooksWriteOnlyRepository _booksOnlyRepository;
+    public RegisterBookUseCase(IBooksWriteOnlyRepository booksOnlyRepository)
     {
         _booksOnlyRepository = booksOnlyRepository;
     }
