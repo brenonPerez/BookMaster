@@ -2,7 +2,7 @@
 using BookMaster.Domain.Repositories.Books;
 using BookMaster.Exception.ExceptionBase;
 
-namespace BookMaster.Application.UseCases.Book.GetById;
+namespace BookMaster.Application.UseCases.Books.GetById;
 public class GetBookByIdUseCase : IGetBookByIdUseCase
 {
     private IBooksReadOnlyRepository _booksReadOnlyRepository;

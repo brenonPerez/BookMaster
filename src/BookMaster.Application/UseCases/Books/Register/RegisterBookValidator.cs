@@ -1,7 +1,7 @@
 ﻿using BookMaster.Communication.Requests;
 using FluentValidation;
 
-namespace BookMaster.Application.UseCases.Book.Register;
+namespace BookMaster.Application.UseCases.Books.Register;
 public class RegisterBookValidator : AbstractValidator<RequestBookJson>
 {
     public RegisterBookValidator()

@@ -1,5 +1,5 @@
-﻿using BookMaster.Application.UseCases.Book.GetById;
-using BookMaster.Application.UseCases.Book.Register;
+﻿using BookMaster.Application.UseCases.Books.GetById;
+using BookMaster.Application.UseCases.Books.Register;
 using BookMaster.Communication.Requests;
 using BookMaster.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;

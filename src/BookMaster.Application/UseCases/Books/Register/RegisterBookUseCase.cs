@@ -1,29 +1,28 @@
-﻿using BookMaster.Communication.Requests;
+﻿using AutoMapper;
+using BookMaster.Communication.Requests;
 using BookMaster.Communication.Responses;
+using BookMaster.Domain.Entities;
 using BookMaster.Domain.Repositories.Books;
 using BookMaster.Exception.ExceptionBase;
 
-namespace BookMaster.Application.UseCases.Book.Register;
+namespace BookMaster.Application.UseCases.Books.Register;
 public class RegisterBookUseCase : IRegisterBookUseCase
 {
     private readonly IBooksWriteOnlyRepository _booksOnlyRepository;
-    public RegisterBookUseCase(IBooksWriteOnlyRepository booksOnlyRepository)
+    private readonly IMapper _mapper;
+    public RegisterBookUseCase(
+        IBooksWriteOnlyRepository booksOnlyRepository,
+        IMapper mapper)
     {
         _booksOnlyRepository = booksOnlyRepository;
+        _mapper = mapper;
     }
 
     public async Task<ResponseBookJson> Execute(RequestBookJson request)
     {
         Validate(request);
 
-        var bookEntity = new BookMaster.Domain.Entities.Book
-        {
-            Title = request.Title,
-            Author = request.Author,
-            Publisher = request.Publisher,
-            Year = request.Year,
-            Summary = request.Summary
-        };
+        var bookEntity = _mapper.Map<Book>(request);
 
         await _booksOnlyRepository.Add(bookEntity);
 
