@@ -2,6 +2,7 @@
 using BookMaster.Communication.Requests;
 using BookMaster.Communication.Responses;
 using BookMaster.Domain.Entities;
+using BookMaster.Domain.Repositories;
 using BookMaster.Domain.Repositories.Books;
 using BookMaster.Exception.ExceptionBase;
 
@@ -10,12 +11,15 @@ public class RegisterBookUseCase : IRegisterBookUseCase
 {
     private readonly IBooksWriteOnlyRepository _booksOnlyRepository;
     private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
     public RegisterBookUseCase(
         IBooksWriteOnlyRepository booksOnlyRepository,
-        IMapper mapper)
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
     {
         _booksOnlyRepository = booksOnlyRepository;
         _mapper = mapper;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<ResponseBookJson> Execute(RequestBookJson request)
@@ -25,6 +29,8 @@ public class RegisterBookUseCase : IRegisterBookUseCase
         var bookEntity = _mapper.Map<Book>(request);
 
         await _booksOnlyRepository.Add(bookEntity);
+
+        await _unitOfWork.Commit();
 
         return _mapper.Map<ResponseBookJson>(bookEntity);
     }
