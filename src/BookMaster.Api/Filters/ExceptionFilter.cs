@@ -11,7 +11,6 @@ public class ExceptionFilter : IExceptionFilter
     {
         if (context.Exception is BookMasterException)
         {
-
             HandleProjectException(context);
         }
         else
