@@ -1,5 +1,6 @@
 ﻿using BookMaster.Application.AutoMapper;
 using BookMaster.Application.UseCases.Books.Delete;
+using BookMaster.Application.UseCases.Books.GetByFilters;
 using BookMaster.Application.UseCases.Books.GetById;
 using BookMaster.Application.UseCases.Books.Register;
 using BookMaster.Application.UseCases.Books.Update;
@@ -20,6 +21,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetBookByIdUseCase, GetBookByIdUseCase>();
         services.AddScoped<IUpdateBookUseCase, UpdateBookUseCase>();
         services.AddScoped<IDeleteBookUseCase, DeleteBookUseCase>();
+        services.AddScoped<IGetBooksByFiltersUseCase, GetBooksByFiltersUseCase>();
     }
 
     public static void AddAutoMapper(this IServiceCollection services)
