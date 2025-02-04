@@ -1,5 +1,5 @@
 ﻿using BookMaster.Communication.Responses;
-using FluentValidation;
+using BookMaster.Exception.ExceptionBase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -9,17 +9,31 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is ValidationException validationException)
+        if (context.Exception is BookMasterException)
         {
-            var errorResponse = new ResponseErrorJson(validationException.Errors.Select(e => e.ErrorMessage).ToList());
-            context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            context.Result = new ObjectResult(errorResponse);
+
+            HandleProjectException(context);
         }
         else
         {
-            var errorResponse = new ResponseErrorJson("Ocorreu um erro desconhecido no servidor.");
-            context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            context.Result = new ObjectResult(errorResponse);
+            ThrowUnkowError(context);
         }
+    }
+
+    private void HandleProjectException(ExceptionContext context)
+    {
+        var bookMasterException = (BookMasterException)context.Exception;
+        var errorResponse = new ResponseErrorJson(bookMasterException.GetErrors());
+
+        context.HttpContext.Response.StatusCode = bookMasterException.StatusCode;
+        context.Result = new ObjectResult(errorResponse);
+    }
+
+    private void ThrowUnkowError(ExceptionContext context)
+    {
+        var errorResponse = new ResponseErrorJson("Ocorreu um erro desconhecido no servidor.");
+
+        context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Result = new ObjectResult(errorResponse);
     }
 }

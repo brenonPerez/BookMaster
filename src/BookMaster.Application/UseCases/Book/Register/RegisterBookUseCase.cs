@@ -1,8 +1,7 @@
 ﻿using BookMaster.Communication.Requests;
 using BookMaster.Communication.Responses;
 using BookMaster.Domain.Repositories.Books;
-using BookMaster.Domain.Entities;
-using FluentValidation;
+using BookMaster.Exception.ExceptionBase;
 
 namespace BookMaster.Application.UseCases.Book.Register;
 public class RegisterBookUseCase : IRegisterBookUseCase
@@ -47,7 +46,9 @@ public class RegisterBookUseCase : IRegisterBookUseCase
 
         if(result.IsValid is false)
         {
-            throw new ValidationException(result.Errors);
+            var errorMessages = result.Errors.Select(r => r.ErrorMessage).ToList();
+
+            throw new ErrorOnValidationException(errorMessages);
         }
     }
 }
