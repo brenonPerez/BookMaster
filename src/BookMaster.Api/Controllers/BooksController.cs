@@ -1,4 +1,5 @@
 ﻿using BookMaster.Application.UseCases.Books.Delete;
+using BookMaster.Application.UseCases.Books.GetByFilters;
 using BookMaster.Application.UseCases.Books.GetById;
 using BookMaster.Application.UseCases.Books.Register;
 using BookMaster.Application.UseCases.Books.Update;
@@ -61,5 +62,18 @@ public class BooksController : ControllerBase
         await useCase.Execute(id);
 
         return NoContent();
+    }
+
+    [HttpGet("search")]
+    [ProducesResponseType(typeof(ResponseBooksJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetByFilters(
+    [FromServices] IGetBooksByFiltersUseCase useCase,
+    [FromQuery] string? title,
+    [FromQuery] string? author,
+    [FromQuery] string? publisher)
+    {
+        var books = await useCase.Execute(title, author, publisher);
+
+        return Ok(books);
     }
 }
