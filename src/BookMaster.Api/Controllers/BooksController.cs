@@ -1,4 +1,5 @@
-﻿using BookMaster.Application.UseCases.Book.Register;
+﻿using BookMaster.Application.UseCases.Book.GetById;
+using BookMaster.Application.UseCases.Book.Register;
 using BookMaster.Communication.Requests;
 using BookMaster.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -17,5 +18,18 @@ public class BooksController : ControllerBase
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseBookJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+        [FromServices] IGetBookByIdUseCase useCase,
+        [FromRoute] long id)
+    {
+        var response = await useCase.Execute(id);
+
+        return Ok(response);
     }
 }
