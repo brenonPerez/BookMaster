@@ -27,6 +27,7 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IBooksWriteOnlyRepository, BooksWriteOnlyRepository>();
         services.AddScoped<IBooksReadOnlyRepository, BooksReadOnlyRepository>();
+        services.AddScoped<IBooksUpdateOnlyRepository, BooksUpdateOnlyRepository>();
     }
 }
 
